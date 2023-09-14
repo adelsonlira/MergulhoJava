@@ -1,9 +1,6 @@
 package br.com.adelson.banco.app;
 
-import br.com.adelson.banco.modelo.Conta;
-import br.com.adelson.banco.modelo.ContaEspecial;
-import br.com.adelson.banco.modelo.ContaInvestimento;
-import br.com.adelson.banco.modelo.Pessoa;
+import br.com.adelson.banco.modelo.*;
 
 public class Principal {
     public static void main(String[] args) {
@@ -24,17 +21,14 @@ public class Principal {
         conta.creditarRendimentos(1);
         conta2.depositar(11000);
         conta2.sacar(12000);
+        conta.taxasBancarias();
+        conta2.taxasBancarias();
 
-        System.out.println(conta.getTitular().getNome());
-        System.out.println(conta.getTitular().getDocumento());
-        System.out.println(conta.getAgencia());
-        System.out.println(conta.getNumero());
-        System.out.println(conta.getSaldo());
-        System.out.println("---------------------");
-        System.out.println(conta2.getTitular().getNome());
-        System.out.println(conta2.getTitular().getDocumento());
-        System.out.println(conta2.getAgencia());
-        System.out.println(conta2.getNumero());
-        System.out.println(conta2.getSaldo());
+        CaixaEletronico caixaEletronico = new CaixaEletronico();
+
+        caixaEletronico.imprimirSaldo(conta);
+        System.out.println("--------------------");
+        caixaEletronico.imprimirSaldo(conta2);
+
     }
 }

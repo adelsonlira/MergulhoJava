@@ -14,6 +14,11 @@ public class ContaEspecial extends Conta{
         return getSaldo() + getValorLimite();
     }
 
+    @Override
+    public void taxasBancarias() {
+        sacar(10);
+    }
+
     public double getValorLimite() {
         return valorLimite;
     }

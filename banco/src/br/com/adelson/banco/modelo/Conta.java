@@ -2,7 +2,7 @@ package br.com.adelson.banco.modelo;
 
 import java.util.Objects;
 
-public class Conta {
+public abstract class Conta {
 
     private Pessoa titular;
     private int agencia;
@@ -43,6 +43,8 @@ public class Conta {
     public void sacar (double valor, double taxaDeSaque){
         sacar(valor + taxaDeSaque);
     }
+
+    public abstract void taxasBancarias();
 
     public Pessoa getTitular() {
         return titular;
