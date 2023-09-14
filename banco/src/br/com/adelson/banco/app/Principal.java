@@ -1,6 +1,8 @@
 package br.com.adelson.banco.app;
 
 import br.com.adelson.banco.modelo.Conta;
+import br.com.adelson.banco.modelo.ContaEspecial;
+import br.com.adelson.banco.modelo.ContaInvestimento;
 import br.com.adelson.banco.modelo.Pessoa;
 
 public class Principal {
@@ -11,16 +13,17 @@ public class Principal {
         titular.setNome("Juscelino da Silva");
         titular.setDocumento("12345678900");
 
-        Conta conta = new Conta(titular, 10, 123456, 50_000);
+        ContaInvestimento conta = new ContaInvestimento(titular, 10, 123456);
 
         titular2.setNome("Justina da Silva");
         titular2.setDocumento("12345678911");
 
-        Conta conta2 = new Conta(titular2, 10, 987654, 30000);
+        ContaEspecial conta2 = new ContaEspecial(titular2, 10, 987654, 5_000);
 
         conta.depositar(100);
-
-        conta2.sacar(5000, 10);
+        conta.creditarRendimentos(1);
+        conta2.depositar(11000);
+        conta2.sacar(12000);
 
         System.out.println(conta.getTitular().getNome());
         System.out.println(conta.getTitular().getDocumento());
