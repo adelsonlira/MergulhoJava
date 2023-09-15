@@ -1,6 +1,9 @@
 package br.com.adelson.banco.app;
 
 import br.com.adelson.banco.modelo.*;
+import br.com.adelson.banco.modelo.atm.CaixaEletronico;
+import br.com.adelson.banco.modelo.pagamento.Boleto;
+import br.com.adelson.banco.modelo.pagamento.Holerite;
 
 public class Principal {
     public static void main(String[] args) {
@@ -17,18 +20,35 @@ public class Principal {
 
         ContaEspecial conta2 = new ContaEspecial(titular2, 10, 987654, 5_000);
 
-        conta.depositar(100);
+        conta.depositar(26000);
         conta.creditarRendimentos(1);
         conta2.depositar(11000);
-        conta2.sacar(12000);
+        conta2.sacar(10000);
         conta.taxasBancarias();
         conta2.taxasBancarias();
 
+        Boleto boleto = new Boleto(titular2, 1200);
+        Holerite salario = new Holerite(titular, 250, 100);
+
         CaixaEletronico caixaEletronico = new CaixaEletronico();
 
+        caixaEletronico.pagar(boleto, conta2);
+        caixaEletronico.pagar(salario, conta);
+
+        caixaEletronico.estornar(boleto, conta2);
+
+        boleto.imprimirRecibo();
+        System.out.println("--------------------");
+
         caixaEletronico.imprimirSaldo(conta);
+       // System.out.println("Salario pago: "+ salario.estaPago());
+        System.out.println("--------------------");
+        salario.imprimirRecibo();
         System.out.println("--------------------");
         caixaEletronico.imprimirSaldo(conta2);
+       // System.out.println("Boleto pago: "+ boleto.estaPago());
+
+
 
     }
 }
