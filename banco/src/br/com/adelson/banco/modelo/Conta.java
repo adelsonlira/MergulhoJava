@@ -1,5 +1,7 @@
 package br.com.adelson.banco.modelo;
 
+import br.com.adelson.banco.modelo.excecao.SaldoInsuficienteException;
+
 import java.util.Objects;
 
 public abstract class Conta {
@@ -31,7 +33,7 @@ public abstract class Conta {
             throw new IllegalArgumentException("Valor tem que ser maior que zero");
         }
         if(getSaldoDisponivel() - valor < 0){
-            throw new IllegalArgumentException("Saldo insuficiente");
+            throw new SaldoInsuficienteException("Saldo insuficiente");
         }
         this.saldo = saldo - valor;
     }
