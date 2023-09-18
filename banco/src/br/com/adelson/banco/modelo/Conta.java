@@ -2,6 +2,7 @@ package br.com.adelson.banco.modelo;
 
 import br.com.adelson.banco.modelo.excecao.SaldoInsuficienteException;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public abstract class Conta {
@@ -9,7 +10,7 @@ public abstract class Conta {
     private Pessoa titular;
     private int agencia;
     private int numero;
-    private double saldo;
+    private BigDecimal saldo = BigDecimal.ZERO;
 
     Conta() {
     }
@@ -21,29 +22,29 @@ public abstract class Conta {
         this.numero = numero;
     }
 
-    public void depositar (double valor){
-        if(valor < 0){
+    public void depositar (BigDecimal valor){
+        if(valor.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("Valor tem que ser maior que zero");
         }
-        this.saldo = saldo + valor;
+        this.saldo = saldo.add(valor);
     }
 
-    public void sacar (double valor){
-        if(valor < 0){
+    public void sacar (BigDecimal valor){
+        if(valor.compareTo(BigDecimal.ZERO) <= 0){
             throw new IllegalArgumentException("Valor tem que ser maior que zero");
         }
-        if(getSaldoDisponivel() - valor < 0){
+        if(getSaldoDisponivel().subtract(valor).compareTo(BigDecimal.ZERO) < 0){
             throw new SaldoInsuficienteException("Saldo insuficiente");
         }
-        this.saldo = saldo - valor;
+        this.saldo = saldo.subtract(valor);
     }
 
-    public double getSaldoDisponivel(){
+    public BigDecimal getSaldoDisponivel(){
         return getSaldo();
     }
 
-    public void sacar (double valor, double taxaDeSaque){
-        sacar(valor + taxaDeSaque);
+    public void sacar (BigDecimal valor, BigDecimal taxaDeSaque){
+        sacar(valor.add(taxaDeSaque));
     }
 
     public abstract void taxasBancarias();
@@ -60,7 +61,7 @@ public abstract class Conta {
         return numero;
     }
 
-    public double getSaldo() {
+    public BigDecimal getSaldo() {
         return saldo;
     }
 
